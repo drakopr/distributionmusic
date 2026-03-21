@@ -41,6 +41,8 @@
         .choice-item input { width: 16px; height: 16px; accent-color: var(--primary); margin: 0; }
 
         .submit-btn { width: 100%; padding: 22px; background: var(--primary); color: #000; border: none; border-radius: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; margin-top: 30px; }
+        
+        .helper-text { font-size: 0.65rem; color: #555; margin-top: 8px; line-height: 1.4; }
 
         @media (max-width: 768px) { .form-grid, .split-row { grid-template-columns: 1fr; } .full { grid-column: span 1; } }
     </style>
@@ -156,21 +158,17 @@
 <div id="contracts" class="tab-content">
     <div class="container">
         <h1>CONTRACT MANAGER</h1>
-        <form action="https://formspree.io/f/mreyvbav" method="POST" enctype="multipart/form-data">
+        <form action="https://formspree.io/f/mreyvbav" method="POST">
             <div class="form-grid">
                 <div class="form-group full"><label>Artista / Entidad</label><input type="text" name="c_entidad" required></div>
                 <div class="form-group full"><label>Nombre del Proyecto</label><input type="text" name="c_proyecto" required></div>
             </div>
-            <div class="form-group full" style="margin-bottom: 25px;">
-                <label>Enlace al Contrato (Google Drive / Dropbox)</label>
-                <input type="url" name="c_link">
-            </div>
-            <div style="text-align: center; color: #444; font-size: 0.6rem; margin-bottom: 15px; font-weight: 800;">-- O SUBIR DOCUMENTO --</div>
             <div class="form-group full">
-                <label>Archivo de Contrato (PDF)</label>
-                <input type="file" name="c_file" accept=".pdf" style="padding:30px; border:2px dashed #333; background:#080808; color:white; width:100%;">
+                <label>Enlace al Contrato (Google Drive / Dropbox / iCloud)</label>
+                <input type="url" name="c_link" placeholder="https://..." required>
+                <div class="helper-text">Asegúrate de que el enlace tenga los permisos de lectura activados (Cualquier persona con el enlace).</div>
             </div>
-            <button type="submit" class="submit-btn">ENVIAR DOCUMENTOS</button>
+            <button type="submit" class="submit-btn" style="margin-top: 50px;">ENVIAR DOCUMENTACIÓN</button>
         </form>
     </div>
 </div>
@@ -183,7 +181,7 @@
                 <div class="form-group"><label>Nombre</label><input type="text" name="s_nombre" required></div>
                 <div class="form-group"><label>Email</label><input type="email" name="s_email" required></div>
             </div>
-            <textarea name="s_msg" rows="6"></textarea>
+            <textarea name="s_msg" rows="6" placeholder="Escribe tu consulta aquí..."></textarea>
             <button type="submit" class="submit-btn">ENVIAR CONSULTA</button>
         </form>
     </div>
@@ -240,3 +238,4 @@
 
 </body>
 </html>
+
