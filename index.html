@@ -2,22 +2,22 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Drako Music | Distribution Suite</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
     <style>
         /* ESTÉTICA DARK URBANO 2026 - NEO-BRUTALISM & NEON ACCENTS */
         :root { 
-            --bg-color: #050505; /* Negro profundo */
-            --surface: #0a0a0a; /* Gris casi negro para contenedores */
+            --bg-color: #050505; 
+            --surface: #0a0a0a; 
             --surface-hover: #141414;
             --border: #222222;
             --border-highlight: #444444;
-            --primary: #d4ff00; /* Verde Ácido Neón (Vibra Urbana) */
+            --primary: #d4ff00; 
             --primary-hover: #bce600;
-            --text-main: #ffffff; /* Letras blancas puras */
+            --text-main: #ffffff; 
             --text-muted: #888888; 
-            --error: #ff2a4d; /* Rojo agresivo */
+            --error: #ff2a4d; 
             --success: #d4ff00;
         }
         
@@ -62,6 +62,7 @@
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
+        /* NAVEGACIÓN (Ocultar scrollbar en móvil) */
         nav { 
             position: sticky; 
             top: 0; 
@@ -70,13 +71,20 @@
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border); 
             display: flex; 
-            justify-content: center; 
+            justify-content: flex-start; /* Cambio a flex-start para mejor swipe en móvil */
             padding: 15px; 
             z-index: 10000; 
             gap: 10px;
             overflow-x: auto;
             white-space: nowrap;
+            -ms-overflow-style: none;  /* IE y Edge */
+            scrollbar-width: none;  /* Firefox */
         }
+        nav::-webkit-scrollbar { display: none; /* Chrome, Safari y Opera */ }
+        
+        /* Centrar items de nav en desktop */
+        @media (min-width: 769px) { nav { justify-content: center; } }
+
         .nav-btn { 
             background: transparent; 
             border: 1px solid transparent; 
@@ -217,7 +225,7 @@
         .btn-add:hover { border-color: var(--primary); color: var(--primary); }
         
         .btn-del { background: transparent; border: 1px solid var(--border); color: var(--text-muted); border-radius: 4px; cursor: pointer; height: 54px; font-weight: bold; font-family: 'Space Grotesk'; transition: all 0.3s; }
-        .btn-del:hover { background: var(--error); color: #fff; }
+        .btn-del:hover { background: var(--error); color: #fff; border-color: var(--error); }
 
         .compliance-box { background: #000; border: 1px solid var(--border); padding: 25px; border-radius: 6px; margin-bottom: 25px; }
         .compliance-text { font-size: 0.95rem; color: var(--text-main); margin-bottom: 15px; font-weight: 700; font-family: 'Space Grotesk'; }
@@ -237,26 +245,54 @@
         }
         .download-btn:hover { background: #fff; color: #000; }
 
-        /* AJUSTES RESPONSIVOS IMAGEN BEATS */
         .beats-img {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin-bottom: 20px;
-            display: block;
+            width: 100%; max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 20px; display: block;
         }
 
-        @media (max-width: 600px) {
-            .container { padding: 30px 20px; }
+        /* AJUSTES RESPONSIVOS PARA MÓVIL (ANDROID / iOS) */
+        @media (max-width: 768px) {
+            .tab-content { padding: 30px 10px; } /* Menos margen arriba del contenido */
+            
+            .container { padding: 25px 15px; } /* Aprovecha el ancho de la pantalla */
+            
             h1 { font-size: 1.8rem; margin-bottom: 30px; }
-            .form-grid { grid-template-columns: 1fr; gap: 15px; }
+            
+            .section-title { margin: 35px 0 15px 0; font-size: 0.9rem; }
+            
+            .form-grid { grid-template-columns: 1fr; gap: 15px; } /* Columnas al 100% de ancho */
             .full { grid-column: span 1; }
-            .prep-guide { grid-template-columns: 1fr; }
-            .split-row { grid-template-columns: 1fr; gap: 15px; position: relative; padding-bottom: 75px; }
-            .btn-del { position: absolute; bottom: 20px; right: 20px; left: 20px; width: auto; height: 45px; }
+            
+            .prep-guide { grid-template-columns: 1fr; gap: 12px; }
+            .guide-item { padding: 15px; }
+            
+            input, select, textarea { 
+                padding: 14px 15px; /* Inputs un poco más compactos para dedos */
+                font-size: 16px; /* Evita que iOS/Android hagan zoom automático al teclear */
+            }
+            
+            /* Ajuste perfecto para las divisiones de regalías (Splits) */
+            .split-row { 
+                grid-template-columns: 1fr; 
+                gap: 15px; 
+                position: relative; 
+                padding: 15px;
+                padding-bottom: 75px; /* Espacio exacto para el botón X */
+            }
+            
+            .btn-del { 
+                position: absolute; 
+                bottom: 15px; 
+                right: 15px; 
+                left: 15px; 
+                width: calc(100% - 30px); 
+                height: 45px; 
+            }
+
+            /* Evita que los radio buttons se empalmen horizontalmente */
+            .choice-group { flex-direction: column; gap: 15px; }
+            .compliance-box { padding: 15px; }
+            
+            .submit-btn { padding: 18px; font-size: 1rem; margin-top: 30px; }
         }
     </style>
 </head>
@@ -350,8 +386,6 @@
         <h1>Beats <span>Price</span></h1>
         
         <img src="https://lh3.googleusercontent.com/d/1BoJM5lOizsVV98WUum44SvBHhAFiBnBD" alt="Lista de Precios de Beats" class="beats-img">
-        
-        <a href="https://drive.google.com/uc?export=download&id=1BoJM5lOizsVV98WUum44SvBHhAFiBnBD" class="download-btn">Descargar Lista de Precios</a>
     </div>
 </div>
 
@@ -458,3 +492,4 @@
 
 </body>
 </html>
+
