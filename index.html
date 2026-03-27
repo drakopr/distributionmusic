@@ -11,19 +11,19 @@
     <style>
         /* ESTÉTICA NEÓN - LA MOVIE URBANA TV (ROJO Y NEGRO) */
         :root { 
-            --bg-color: #000000; /* Negro puro */
-            --surface: #0a0a0a; /* Gris muy oscuro */
+            --bg-color: #000000; 
+            --surface: #0a0a0a; 
             --surface-hover: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 0, 0, 0.25); /* Bordes con ligero tinte rojo */
+            --border: rgba(255, 0, 0, 0.25); 
             --border-highlight: rgba(255, 0, 0, 0.6);
-            --primary: #ff0000; /* Rojo Neón */
+            --primary: #ff0000; 
             --primary-glow: rgba(255, 0, 0, 0.4);
             --primary-hover: #ff3333;
-            --secondary: #c0c0c0; /* Plata / Gris Metálico */
+            --secondary: #c0c0c0; 
             --text-main: #ffffff; 
             --text-muted: #a0a0a0; 
             --error: #ff2a4d; 
-            --success: #00ff66; /* Verde neón para estados de éxito */
+            --success: #00ff66; 
             --radius-sm: 8px;
             --radius-md: 16px;
             --radius-lg: 24px;
@@ -458,20 +458,28 @@
     function checkGuide(id) { document.getElementById(id).classList.add('active'); }
 
     function validateSplits() {
-        const inputs = document.querySelectorAll('.split-input');
-        const status = document.getElementById('split-status');
-        const btn = document.getElementById('submitBtn');
-        const terms = document.getElementById('termsCheckbox');
-        let total = 0;
-        inputs.forEach(input => { total += Number(input.value); });
+        var inputs = document.querySelectorAll('.split-input');
+        var status = document.getElementById('split-status');
+        var btn = document.getElementById('submitBtn');
+        var terms = document.getElementById('termsCheckbox');
+        var total = 0;
+        
+        inputs.forEach(function(input) { 
+            total += Number(input.value); 
+        });
 
         if (total === 100) {
             status.innerHTML = "<i class='ri-check-double-line'></i> Total: 100% - Listo";
             status.className = "split-status status-ok";
-            if(terms && terms.checked) btn.disabled = false;
         } else {
-            status.innerHTML = `<i class='ri-error-warning-line'></i> Total: ${total}% (Debe ser 100%)`;
+            status.innerHTML = "<i class='ri-error-warning-line'></i> Total: " + total + "% (Debe ser 100%)";
             status.className = "split-status status-error";
+        }
+
+        /* LOGICA CORREGIDA: Verifica que el total sea 100 Y que los términos estén aceptados */
+        if (total === 100 && terms && terms.checked) {
+            btn.disabled = false;
+        } else {
             btn.disabled = true;
         }
     }
@@ -480,12 +488,10 @@
         var container = document.getElementById('splits-box');
         var div = document.createElement('div');
         div.className = 'split-row';
-        div.innerHTML = `
-            <div class="split-col"><label>Nombre Completo</label><input type="text" name="split_nombre[]" required></div>
-            <div class="split-col"><label>Rol</label><select name="split_rol[]"><option>Compositor</option><option>Productor</option><option>Ingeniero</option></select></div>
-            <div class="split-col"><label>%</label><input type="number" name="split_pct[]" class="split-input" required min="0" max="100" oninput="validateSplits()"></div>
-            <button type="button" class="btn-del" onclick="this.parentElement.remove(); validateSplits();"><i class="ri-delete-bin-line"></i></button>
-        `;
+        div.innerHTML = '<div class="split-col"><label>Nombre Completo</label><input type="text" name="split_nombre[]" required></div>' +
+                        '<div class="split-col"><label>Rol</label><select name="split_rol[]"><option>Compositor</option><option>Productor</option><option>Ingeniero</option></select></div>' +
+                        '<div class="split-col"><label>%</label><input type="number" name="split_pct[]" class="split-input" required min="0" max="100" oninput="validateSplits()"></div>' +
+                        '<button type="button" class="btn-del" onclick="this.parentElement.remove(); validateSplits();"><i class="ri-delete-bin-line"></i></button>';
         container.appendChild(div);
         validateSplits();
     }
